@@ -50,7 +50,11 @@ Run the server:
 ```bash
 # Development Environment
 npm run dev
+```
 
+Open http://localhost:3000 to see the app
+
+```bash
 # Production Environment
 npm run build
 ```
