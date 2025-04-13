@@ -2,6 +2,8 @@
 
 **A Simple Admin Content Manager with Drag and Drop Feature using ReactJS, Vite, Tailwind CSS, DND Kit and Local Storage as backend API.**
 
+[Live Demo](https://admin-content-manager.netlify.app/)
+
 ---
 
 ## 🚀 Technologies Used
