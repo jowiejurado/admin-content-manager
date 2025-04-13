@@ -9,6 +9,8 @@ import {
   mdiLoading,
   mdiChevronDown,
   mdiChevronUp,
+  mdiEye,
+  mdiEyeOff,
 } from '@mdi/js';
 import { Content } from '@/types';
 
@@ -95,11 +97,12 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
       {...attributes}
       {...listeners}
       className={`
-        relative mx-auto h-fit w-full max-w-full cursor-grab rounded-2xl bg-white p-6 shadow-md ring-1 ring-green-500/50 transition-shadow hover:shadow-xl sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
-        ${editableContent.isNew ? 'border border-blue-600' : ''}
+        relative mx-auto h-fit w-full max-w-full cursor-grab rounded-2xl p-6 shadow-md ring-1 ring-green-500/50 transition-shadow hover:shadow-xl sm:max-w-md md:max-w-lg lg:max-w-xl xl:max-w-2xl
+        ${editableContent.isNew ? 'border border-blue-600' : ''},
+        ${editableContent.visibility ? 'bg-white' : 'bg-gray-400/20'}
       `}
     >
-      <div className="absolute right-4 top-4 flex items-center gap-2 text-gray-400">
+      <div className="absolute right-4 top-4 flex items-center gap-0.5 text-gray-400">
         <button
           type="button"
           onClick={handleCollapseToggle}
@@ -114,19 +117,33 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
         <div className="cursor-grab hover:text-gray-600">
           <Icon path={mdiCursorMove} size={0.8} />
         </div>
+
         {isCollapsed && (
-          <button
-            onClick={handleDelete}
-            disabled={isDeleting}
-            className="text-xs text-red-600 hover:text-red-700"
-          >
-            <Icon
-              path={isDeleting ? mdiLoading : mdiDelete}
-              size={0.8}
-              className={isDeleting ? 'animate-spin' : ''}
-              style={{ pointerEvents: 'none' }}
-            />
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={handleToggleVisibility}
+              className="flex h-8 w-8 items-center justify-center text-gray-400 hover:text-gray-600"
+            >
+              <Icon
+                path={editableContent.visibility ? mdiEye : mdiEyeOff}
+                size={1}
+                style={{ pointerEvents: 'none' }}
+              />
+            </button>
+            <button
+              onClick={handleDelete}
+              disabled={isDeleting}
+              className="text-xs text-red-600 hover:text-red-700"
+            >
+              <Icon
+                path={isDeleting ? mdiLoading : mdiDelete}
+                size={0.8}
+                className={isDeleting ? 'animate-spin' : ''}
+                style={{ pointerEvents: 'none' }}
+              />
+            </button>
+          </>
         )}
       </div>
 
@@ -138,7 +155,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
             </label>
             <select
               name="type"
-              className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700 focus:border-primary-500 focus:ring-primary-500"
+              className="focus:border-primary-500 focus:ring-primary-500 rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700"
               value={editableContent.type}
               onChange={handleInputChange}
             >
@@ -159,7 +176,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
               name="title"
               value={editableContent.title}
               onChange={handleInputChange}
-              className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700 focus:border-primary-500 focus:ring-primary-500"
+              className="focus:border-primary-500 focus:ring-primary-500 rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700"
             />
           </div>
 
@@ -172,7 +189,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
               name="referenceId"
               value={editableContent.referenceId}
               onChange={handleInputChange}
-              className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700 focus:border-primary-500 focus:ring-primary-500"
+              className="focus:border-primary-500 focus:ring-primary-500 rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700"
             />
           </div>
 
@@ -187,7 +204,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
                   : editableContent?.tags || ''
               }
               onChange={handleInputChange}
-              className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700 focus:border-primary-500 focus:ring-primary-500"
+              className="focus:border-primary-500 focus:ring-primary-500 rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700"
             />
           </div>
 
@@ -230,7 +247,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
                 name="startPublishDate"
                 value={editableContent.startPublishDate}
                 onChange={handleInputChange}
-                className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700 focus:border-primary-500 focus:ring-primary-500"
+                className="focus:border-primary-500 focus:ring-primary-500 rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700"
               />
             </div>
             <div className="flex flex-1 flex-col gap-2">
@@ -242,7 +259,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
                 name="endPublishDate"
                 value={editableContent.endPublishDate}
                 onChange={handleInputChange}
-                className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700 focus:border-primary-500 focus:ring-primary-500"
+                className="focus:border-primary-500 focus:ring-primary-500 rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700"
               />
             </div>
           </div>
@@ -257,15 +274,15 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
               value={editableContent.priority}
               onChange={handleInputChange}
               min={1}
-              className="rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700 focus:border-primary-500 focus:ring-primary-500"
+              className="focus:border-primary-500 focus:ring-primary-500 rounded-lg border border-gray-300 bg-gray-50 p-2 text-gray-700"
             />
           </div>
 
-          <div className="mt-4 flex justify-end gap-3">
+          <div className="mt-4 flex justify-end gap-3 md:flex-col">
             <button
               onClick={handleSave}
               disabled={isSaving}
-              className="flex items-center gap-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium uppercase text-white shadow-md hover:bg-blue-700"
+              className="flex items-center gap-x-2 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium uppercase text-white shadow-md hover:bg-blue-700 md:justify-center"
             >
               <Icon
                 path={isSaving ? mdiLoading : mdiContentSave}
@@ -278,7 +295,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
             <button
               onClick={handleDelete}
               disabled={isDeleting}
-              className="flex items-center gap-x-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium uppercase text-white shadow-md hover:bg-red-700"
+              className="flex items-center gap-x-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium uppercase text-white shadow-md hover:bg-red-700 md:justify-center"
             >
               <Icon
                 path={isDeleting ? mdiLoading : mdiDelete}
@@ -292,7 +309,7 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
         </div>
       ) : (
         <>
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2">
             <label className="text-sm font-medium text-gray-600">
               {editableContent.type.replace('_', ' ')}
             </label>

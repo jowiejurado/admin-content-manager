@@ -318,16 +318,19 @@ const App = () => {
         onConfirm={handleConfirmDelete}
       />
 
-      <div className="mb-6 flex items-center justify-between border-b-[1px] border-gray-300/50 px-4 py-6 text-gray-900">
+      <div className="mb-6 flex flex-col gap-6 border-b border-gray-300/50 px-4 py-6 text-gray-900 lg:flex-row lg:items-center lg:justify-between">
         <h1 className="text-2xl font-bold">Admin Content Manager</h1>
-        <div className="flex flex-col gap-4 md:flex-row md:items-end">
+
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-end">
           <button
             onClick={addNewContent}
-            className="flex rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
+            className="flex items-center justify-center gap-2 rounded bg-green-600 px-4 py-2 text-white hover:bg-green-700"
           >
-            <Icon path={mdiPlus} size={1} /> New Content
+            <Icon path={mdiPlus} size={1} />
+            New
           </button>
-          <div>
+
+          <div className="flex flex-col">
             <label className="mb-1 block text-sm font-medium">Type</label>
             <select
               value={filterType}
@@ -343,7 +346,7 @@ const App = () => {
             </select>
           </div>
 
-          <div>
+          <div className="flex flex-col">
             <label className="mb-1 block text-sm font-medium">Visibility</label>
             <select
               value={filterVisibility}
@@ -356,7 +359,7 @@ const App = () => {
             </select>
           </div>
 
-          <div>
+          <div className="flex flex-col">
             <label className="mb-1 block text-sm font-medium">Tag</label>
             <input
               type="text"
@@ -374,7 +377,7 @@ const App = () => {
               setFilterTag('');
             }}
             disabled={!filterType && !filterVisibility && !filterTag}
-            className="text-gra mt-4 h-10 rounded bg-gray-200 px-4 text-gray-900 hover:bg-gray-300 md:mt-0"
+            className="h-10 rounded bg-gray-200 px-4 text-gray-900 hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
           >
             Clear Filters
           </button>
