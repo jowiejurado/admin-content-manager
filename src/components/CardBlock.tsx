@@ -18,19 +18,26 @@ type CardBlockProps = {
   content: Content;
   onDelete: (id: string) => void;
   onSave: (id: string, updatedContent: Content) => void;
+  onVisibilityChange: (id: string, updatedContent: Content) => void;
 };
 
-const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
+const CardBlock = ({
+  content,
+  onDelete,
+  onSave,
+  onVisibilityChange,
+}: CardBlockProps) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: content.id });
 
   const [editableContent, setEditableContent] = useState<Content>({
     ...content,
   });
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSaving, setIsSaving] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isDeleting, setIsDeleting] = useState<boolean>(false);
+  const [isCollapsed, setIsCollapsed] = useState<boolean>(true);
+  const [onToggleVisibility, setToggleVisibility] = useState<boolean>(false);
 
   const style = {
     transform: CSS.Transform.toString(transform),
@@ -75,12 +82,16 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
     }));
   };
 
-  const handleToggleVisibility = async () => {
+  const handleToggleVisibility = () => {
     setIsLoading(true);
+
     setEditableContent((prev) => ({
       ...prev,
       visibility: !prev.visibility,
     }));
+
+    setToggleVisibility(true);
+
     setTimeout(() => {
       setIsLoading(false);
     }, 1500);
@@ -89,6 +100,13 @@ const CardBlock = ({ content, onDelete, onSave }: CardBlockProps) => {
   const handleCollapseToggle = () => {
     setIsCollapsed((prev) => !prev);
   };
+
+  useEffect(() => {
+    if (onToggleVisibility) {
+      onVisibilityChange(content.id, editableContent);
+      setToggleVisibility(false);
+    }
+  }, [onToggleVisibility]);
 
   return (
     <div

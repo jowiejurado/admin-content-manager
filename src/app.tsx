@@ -248,6 +248,23 @@ const App = () => {
     toast.success('Content saved successfully!');
   };
 
+  const handleVisibilityChange = (id: string, updatedContent: Content) => {
+    const updatedContents = contents.map((content: Content) => {
+      return content.id === id ? updatedContent : content;
+    });
+
+    const updatedFilteredContents = filteredContents.map((content: Content) => {
+      return content.id === id ? updatedContent : content;
+    });
+
+    setContents(updatedContents);
+    setFilteredContents(updatedFilteredContents);
+
+    localStorage.setItem('contents', JSON.stringify(updatedContents));
+
+    toast.success('Visibility saved successfully!');
+  };
+
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     if (!over || active.id === over.id) {
@@ -395,6 +412,7 @@ const App = () => {
                 content={content}
                 onDelete={confirmDelete}
                 onSave={handleSave}
+                onVisibilityChange={handleVisibilityChange}
               />
             ))}
           </SortableContext>
