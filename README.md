@@ -1,60 +1,71 @@
-# Admin Content Manager
+<h1 align="center">Admin Content Manager</h1>
 
-**A Simple Admin Content Manager with Drag and Drop Feature using ReactJS, Vite, Tailwind CSS, DND Kit and Local Storage as backend API.**
+**A simple yet powerful admin content manager featuring drag-and-drop capabilities, built with ReactJS, Vite, Tailwind CSS, DND Kit, and utilizing Local Storage as the backend API.**
 
-[Live Demo](https://admin-content-manager.netlify.app/)
+🔗 Live Demo: [admin-content-manager.netlify.app](https://admin-content-manager.netlify.app/)
 
 ---
 
-## 🚀 Technologies Used
+#### 🚀 Features
 
-- [Tailwind CSS](https://tailwindcss.com/)
+- <b>Drag and Drop Interface:</b> Seamlessly rearrange content blocks using DND Kit.
+- <b>Modern Tech Stack:</b> Built with ReactJS and Vite for optimal performance.
+- <b>Responsive Design:</b> Tailwind CSS ensures a mobile-friendly and responsive UI.
+- <b>Local Storage Backend:</b> Persist data locally without the need for a server.
+- <b>Notifications:</b> Integrated React Toastify for user-friendly alerts.
+
+#### 🛠️ Technologies Used
+
 - [React JS](https://react.dev/)
-- [Vite](https://vite.dev/)
 - [DND Kit](https://dndkit.com/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [Vite](https://vite.dev/)
 - [React Toastify](https://fkhadra.github.io/react-toastify/introduction/)
 - [Material Design Icons](https://pictogrammers.com/library/mdi/)
 
 ---
 
-## 🗂️ Tools Needed
+#### ⚙️ Tools Required
 
-- NodeJS/NVM
-- Terminal
-- Browser
-- IDE
+- Node.js (v14 or higher)
+- Code Editor (e.g., Visual Studio Code)
+- Modern Web Browser (e.g., Google Chrome)
 
 ---
 
-## 📦 Project Setup
+#### 📦 Installation & Setup
 
-Clone the repository:
+Follow these steps to set up the project locally:
+
+1. Clone the repository:
 
 ```bash
 git clone https://github.com/jowiejurado/admin-content-manager.git
 cd admin-content-manager
 ```
 
-Install dependencies:
+2. Install dependencies:
 
 ```bash
 npm install
-# or
-pnpm install
-# or
+```
+
+or
+
+```bash
 yarn install
 ```
 
-Run the server:
+3. Run the Development Server:
 
 ```bash
-# Development Environment
 npm run dev
 ```
 
-Open http://localhost:3000 to see the app
+or
 
 ```bash
-# Production Environment
-npm run build
+yarn dev
 ```
+
+Open http://localhost:3000 in your browser to view the application.
